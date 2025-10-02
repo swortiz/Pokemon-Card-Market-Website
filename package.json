@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "serve public"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,10 @@
   },
   "homepage": "https://github.com/swortiz/Pokemon-Card-Market-Website#readme",
   "description": "",
-  "workspaces":[
-	"packages/*"
-   ]
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "serve": "^14.2.5"
+  }
 }
