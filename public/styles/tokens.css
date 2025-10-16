@@ -1,0 +1,18 @@
+:root {
+  
+  --color-background-page: #f8f9fa;
+  --color-background-header: #ffcb05; 
+
+  
+  --color-text-default: #2c2c2c;
+  --color-text-inverted: #ffffff;
+
+  
+  --color-accent: #e3350d; /* red */
+  --color-accent-secondary: #3d7dca; /* blue */
+
+  
+  --font-family-base: 'Trebuchet MS', Helvetica, sans-serif;
+  --font-size-base: 16px;
+  --font-size-heading: 28px;
+}
