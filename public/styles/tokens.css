@@ -12,7 +12,9 @@
   --color-accent-secondary: #3d7dca; /* blue */
 
   
-  --font-family-base: 'Trebuchet MS', Helvetica, sans-serif;
+  --font-family-base: "Open Sans", Arial,  sans-serif;
+  --font-family-heading: "Roboto Condensed", "Open Sans", sans-serif;
+
   --font-size-base: 16px;
   --font-size-heading: 28px;
 }

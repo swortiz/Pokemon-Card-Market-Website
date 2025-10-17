@@ -11,7 +11,15 @@ body {
   padding: 0;
   text-align: center;
 }
-
+.site-header {
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  gap: 10px; 
+  padding: 1rem;
+  background-color: none;
+  border-bottom: 5px solid var(--color-background-header);
+}
 /* Header */
 h1 {
   background-color: var(--color-accent);
@@ -30,11 +38,7 @@ a {
   text-decoration: none;
   font-weight: bold;
   transition: color 0.2s ease-in-out;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
 }
-
 
 a:hover {
   color: var(--color-accent-secondary);
@@ -56,6 +60,6 @@ svg.icon{
   width: 80px;
   height: 80px;
   fill: var(--color-accent);
-  vertical-align: left;
+  vertical-align: middle;
 
 }
