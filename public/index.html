@@ -1,36 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<meta charset="utf-8" />
-	<title>Pokémon Card Market</title>
+        <meta charset="utf-8" />
+        <title>Pokémon Card Market</title>
+        <link rel="stylesheet" href="/styles/reset.css" />
 	<link rel="stylesheet" href="/styles/page.css" />
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-	</head>
-<body>
+  
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        </head>
+  <body>
+    <!-- ✅ HEADER (uses flex layout) -->
+    <header>
+      <h1>Welcome to the Pokémon Card Market</h1>
+      <svg class="icon" width="50" height="50">
+        <use href="icons/pokemon.svg#pokemon-icon"></use>
+      </svg>
+    </header>
 
-    <h1>Welcome to the Pokémon Card Market</h1>
-    	<svg class="icon" width="50" height="50">
-  		<use href="icons/pokemon.svg#pokemon-icon"></use>
-	</svg>
-    <ul>
-      <li>
-	<a href="cards/pikachu.html">
-		<svg class="icon" width="50" height="50">
-			<use href="icons/pokemon.svg#pikachu-icon"></use>
-		</svg>
-		Pikachu
-	</a>
-	</li>
-      <li>
-	<a href="cards/charmander.html">
-		<svg class="icon" width="50" height="50">
-			<use href="icons/pokemon.svg#charmander-icon"></use>
-		</svg>
-		Charmander
-        </a>
-        </li>
-    </ul>
-  </body>
+    <!-- ✅ MAIN CONTENT AREA (uses grid layout) -->
+    <main>
+      <aside>
+        <h2>Popular Pokémon</h2>
+        <ul>
+          <li>
+            <a href="cards/pikachu.html">
+              <svg class="icon" width="50" height="50">
+                <use href="icons/pokemon.svg#pikachu-icon"></use>
+              </svg>
+              Pikachu
+            </a>
+          </li>
+          <li>
+            <a href="cards/charmander.html">
+              <svg class="icon" width="50" height="50">
+                <use href="icons/pokemon.svg#charmander-icon"></use>
+              </svg>
+              Charmander
+            </a>
+          </li>
+        </ul>
+      </aside>
+     </main>
+   </body>
 </html>
+~             
