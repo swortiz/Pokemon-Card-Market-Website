@@ -1,7 +1,6 @@
 /* page.css */
 @import url("/styles/tokens.css");
 
-/* Apply base styles */
 body {
   background-color: var(--color-background-page);
   color: var(--color-text-default);

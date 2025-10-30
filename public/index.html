@@ -13,6 +13,10 @@
   <body>
     <header>
       <h1>Welcome to the Pokémon Card Market</h1>
+      <label id="darkmode-toggle">
+        <input type="checkbox" autocomplete="off" />
+	Dark mode
+      </label>
       <svg class="icon" width="50" height="50">
         <use href="icons/pokemon.svg#pokemon-icon"></use>
       </svg>
@@ -41,6 +45,29 @@
         </ul>
       </aside>
      </main>
+     <script>
+	const label = document.querySelector('#darkmode-toggle');
+	label.onchange = (event) => {
+		event.stopPropagation();
+		const isChecked = event.target.checked;
+
+		const customEvent = new CustomEvent('darkmode:toggle', {
+			bubbles: true,
+			detail: {checked: isChecked},
+		});
+		label.dispatchEvent(customEvent);
+	};
+	document.body.addEventListener('darkmode:toggle', (event) => {
+		const isDark = event.detail.checked;
+
+		if (isDark) {
+			document.body.classList.add('dark-mode');
+		}else{
+			document.body.classList.remove('dark-mode');
+		}
+	});
+     </script>
+
    </body>
 </html>
 ~             
