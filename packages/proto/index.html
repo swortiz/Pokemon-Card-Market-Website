@@ -25,21 +25,8 @@
     <main>
       <aside>
         <h2>Best Seller Pokémon</h2>
-        <ul>
-          <pkm-card
-		img-src="/icons/pokemon.svg#pikachu-icon"
-		name="Pikachu"
-		type="Electric"
-		rarity="Common"
-          ></pkm-card>
-          <pkm-card
-		img-src="/icons/pokemon.svg#charmander-icon"
-		name="Charmander"
-		type="Fire"
-		rarity="Common"
-          ></pkm-card>
-        </ul>
-      </aside>
+      		<pkm-list src="/data/cards.json></pkm-list>
+	</aside>
      </main>
      <script>
 	const label = document.querySelector('#darkmode-toggle');
@@ -64,11 +51,13 @@
 	});
      </script>
      <script type="module">
-	import {define} from "@calpoly/mustang";
-	import {PkmCardElement} from "/src/pkm-card.js";
+	import { define } from "@calpoly/mustang";
+	import { PkmCardElement } from "/src/pkm-card.js";
+	import { PkmListElement } from "/src/pkm-list.js";
 	
 	define({
-		"pkm-card": PkmCardElement
+		"pkm-card": PkmCardElement,
+		"pkm-list": PkmListElement
 	});
      </script>
    </body>
