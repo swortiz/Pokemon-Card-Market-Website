@@ -3,8 +3,8 @@
   <head>
         <meta charset="utf-8" />
         <title>Pokémon Card Market</title>
-        <link rel="stylesheet" href="/styles/reset.css" />
-	<link rel="stylesheet" href="/styles/page.css" />
+        <link rel="stylesheet" href="./styles/reset.css" />
+	<link rel="stylesheet" href="./styles/page.css" />
   
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
 	Dark mode
       </label>
       <svg class="icon" width="50" height="50">
-        <use href="icons/pokemon.svg#pokemon-icon"></use>
+        <use href="./icons/pokemon.svg#pokemon-icon"></use>
       </svg>
     </header>
 
@@ -26,22 +26,18 @@
       <aside>
         <h2>Best Seller Pokémon</h2>
         <ul>
-          <li>
-            <a href="cards/pikachu.html">
-              <svg class="icon" width="50" height="50">
-                <use href="icons/pokemon.svg#pikachu-icon"></use>
-              </svg>
-              Pikachu
-            </a>
-          </li>
-          <li>
-            <a href="cards/charmander.html">
-              <svg class="icon" width="50" height="50">
-                <use href="icons/pokemon.svg#charmander-icon"></use>
-              </svg>
-              Charmander
-            </a>
-          </li>
+          <pkm-card
+		img-src="/icons/pokemon.svg#pikachu-icon"
+		name="Pikachu"
+		type="Electric"
+		rarity="Common"
+          ></pkm-card>
+          <pkm-card
+		img-src="/icons/pokemon.svg#charmander-icon"
+		name="Charmander"
+		type="Fire"
+		rarity="Common"
+          ></pkm-card>
         </ul>
       </aside>
      </main>
@@ -67,7 +63,14 @@
 		}
 	});
      </script>
-
+     <script type="module">
+	import {define} from "@calpoly/mustang";
+	import {PkmCardElement} from "/src/pkm-card.js";
+	
+	define({
+		"pkm-card": PkmCardElement
+	});
+     </script>
    </body>
 </html>
 ~             
