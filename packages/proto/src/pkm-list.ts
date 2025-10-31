@@ -2,7 +2,7 @@ import {html, css, LitElement} from "lit";
 import {property, state} from "lit/decorators.js";
 import "./pkm-card";
 
-interace Card{
+interface Card{
 	name: string;
 	type: string;
 	rarity: string;
