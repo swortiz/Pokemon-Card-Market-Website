@@ -22,5 +22,22 @@ function index(): Promise<PkmCard[]> {
 function get(id: string): Promise<PkmCard | null> {
   return PkmCardModel.findOne({ id });
 }
+function create(json: PkmCard): Promise<PkmCard> {
+  const c = new PkmCardModel(json);
+  return c.save();
+}
 
-export default { index, get };
+function update(id: string, card: PkmCard): Promise<PkmCard> {
+  return PkmCardModel.findOneAndUpdate({ id }, card, { new: true })
+    .then((updated) => {
+      if (!updated) throw `${id} not updated`;
+      return updated as PkmCard;
+    });
+}
+
+function remove(id: string): Promise<void> {
+  return PkmCardModel.findOneAndDelete({ id }).then((deleted) => {
+    if (!deleted) throw `${id} not deleted`;
+  });
+}
+export default { index, get, create, update, remove };

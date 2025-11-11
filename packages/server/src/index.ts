@@ -1,14 +1,16 @@
-// add this import near the top
 import { connect } from "./services/mongo";
 import PkmCards from "./services/pkm-card-svc";
 connect("Pokemon");
 import express, { Request, Response } from "express";
+import cards from "./routes/pkm-cards";
 
 const app = express();
 const port = process.env.PORT || 3000;
 const staticDir = process.env.STATIC || "public";
 
 app.use(express.static(staticDir));
+app.use(express.json());
+app.use("/api/cards", cards);
 
 app.get("/cards/:id", (req: Request, res: Response) => {
   const { id } = req.params;
