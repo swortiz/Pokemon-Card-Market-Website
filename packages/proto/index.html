@@ -29,37 +29,38 @@
 	</aside>
      </main>
      <script>
-	const label = document.querySelector('#darkmode-toggle');
-	label.onchange = (event) => {
-		event.stopPropagation();
-		const isChecked = event.target.checked;
+    const label = document.querySelector('#darkmode-toggle');
+    label.onchange = (event) => {
+      event.stopPropagation();
+      const isChecked = event.target.checked;
 
-		const customEvent = new CustomEvent('darkmode:toggle', {
-			bubbles: true,
-			detail: {checked: isChecked},
-		});
-		label.dispatchEvent(customEvent);
-	};
-	document.body.addEventListener('darkmode:toggle', (event) => {
-		const isDark = event.detail.checked;
+      const customEvent = new CustomEvent('darkmode:toggle', {
+        bubbles: true,
+        detail: { checked: isChecked },
+      });
+      label.dispatchEvent(customEvent);
+    };
 
-		if (isDark) {
-			document.body.classList.add('dark-mode');
-		}else{
-			document.body.classList.remove('dark-mode');
-		}
-	});
-     </script>
-     <script type="module">
-	import { define } from "@calpoly/mustang";
-	import { PkmCardElement } from "/src/pkm-card.js";
-	import { PkmListElement } from "/src/pkm-list.js";
-	
-	define({
-		"pkm-card": PkmCardElement,
-		"pkm-list": PkmListElement
-	});
-     </script>
+    document.body.addEventListener('darkmode:toggle', (event) => {
+      const isDark = event.detail.checked;
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+    });
+  </script>
+
+  <script type="module">
+    import { define } from "@calpoly/mustang";
+    import { PkmCardElement } from "/src/pkm-card.js";
+    import { PkmListElement } from "/src/pkm-list.js";
+
+    define({
+      "pkm-card": PkmCardElement,
+      "pkm-list": PkmListElement
+    });
+  </script>
    </body>
 </html>
 ~             
