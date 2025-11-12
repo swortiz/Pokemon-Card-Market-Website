@@ -1,98 +1,66 @@
-// proto/src/auth/login-form.ts
+// proto/src/header.ts
 import { html, css, LitElement } from "lit";
-import { property, state } from "lit/decorators.js";
-import reset from "../styles/reset.css.js";
-import tokens from "../styles/tokens.css.js";
+import { state } from "lit/decorators.js";
+import { Observer, Events, Auth } from "@calpoly/mustang";
 
-interface LoginFormData {
-  username?: string;
-  password?: string;
-}
+export class HeaderElement extends LitElement {
+  _authObserver = new Observer<Auth.Model>(this, "pokemon:auth");
 
-export class LoginFormElement extends LitElement {
-  @state() formData: LoginFormData = {};
-  @property() api?: string;
-  @property() redirect: string = "/";
-  @state() error?: string;
+  @state() loggedIn = false;
+  @state() trainerName?: string;
 
-  get canSubmit() {
-    return Boolean(this.api && this.formData.username && this.formData.password);
+  connectedCallback() {
+    super.connectedCallback();
+
+    // Observe login/logout changes
+    this._authObserver.observe((auth: Auth.Model) => {
+      const { user } = auth;
+      if (user && user.authenticated) {
+        this.loggedIn = true;
+        this.trainerName = user.username;
+      } else {
+        this.loggedIn = false;
+        this.trainerName = undefined;
+      }
+    });
   }
 
   render() {
     return html`
-      <form
-        class="login-form"
-        @change=${this.handleChange}
-        @submit=${this.handleSubmit}
-      >
-        <slot></slot>
-        <button ?disabled=${!this.canSubmit} type="submit">
-          Sign In
-        </button>
-        <p class="error">${this.error}</p>
-      </form>
+      <div class="auth-status">
+        ${this.loggedIn
+          ? html`
+              <span>Hello, ${this.trainerName}!</span>
+              <button
+                class="signout"
+                @click=${(e: UIEvent) =>
+                  Events.relay(e, "auth:message", ["auth/signout"])}
+              >
+                Sign Out
+              </button>
+            `
+          : html`<a class="signin" href="/login.html">Sign In</a>`}
+      </div>
     `;
   }
 
-  static styles = [
-    reset.styles,
-    tokens.styles,
-    css`
-      .login-form {
-        display: flex;
-        flex-direction: column;
-        gap: var(--size-spacing-medium);
-        background: var(--color-surface);
-        border-radius: var(--radius-large);
-        padding: var(--size-spacing-large);
-        box-shadow: var(--shadow-soft);
-      }
-      button {
-        background: var(--color-accent);
-        color: white;
-        font-weight: bold;
-        padding: var(--size-spacing-small);
-        border: none;
-        border-radius: var(--radius-medium);
-        cursor: pointer;
-      }
-      .error:not(:empty) {
-        color: var(--color-error);
-        border: 1px solid var(--color-error);
-        padding: var(--size-spacing-small);
-      }
-    `
-  ];
-
-  handleChange(event: InputEvent) {
-    const target = event.target as HTMLInputElement;
-    const { name, value } = target;
-    this.formData = { ...this.formData, [name]: value };
-  }
-
-  handleSubmit(event: SubmitEvent) {
-    event.preventDefault();
-    if (!this.canSubmit) return;
-
-    fetch(this.api || "", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(this.formData)
-    })
-      .then((res) => {
-        if (res.status !== 200) throw new Error("Invalid trainer credentials");
-        return res.json();
-      })
-      .then(({ token }) => {
-        const event = new CustomEvent("auth:message", {
-          bubbles: true,
-          composed: true,
-          detail: ["auth/signin", { token, redirect: this.redirect }]
-        });
-        this.dispatchEvent(event);
-      })
-      .catch((err: Error) => (this.error = err.message));
-  }
+  static styles = css`
+    .auth-status {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: "Open Sans", sans-serif;
+    }
+    .signin,
+    .signout {
+      cursor: pointer;
+      font-weight: bold;
+      border: none;
+      background: none;
+      color: var(--color-accent, #e63946);
+    }
+  `;
 }
+
+customElements.define("pkmn-header", HeaderElement);
 
