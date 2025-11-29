@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Pokémon Card Market</title>
+
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/page.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <mu-auth provides="pokemon:auth">
+      <header class="site-header">
+        <div class="header-left">
+          <svg class="icon" width="50" height="50">
+            <use href="./icons/pokemon.svg#pokemon-icon"></use>
+          </svg>
+          <h1>Welcome to the Pokémon Card Market</h1>
+        </div>
+
+        <div class="header-right">
+          <label id="darkmode-toggle">
+            <input type="checkbox" autocomplete="off" />
+            Dark mode
+          </label>
+
+          <pkmn-header></pkmn-header>
+        </div>
+      </header>
+
+      <main>
+        <aside>
+          <h2>Best Seller Pokémon</h2>
+          <pkm-list src="/data/cards.json"></pkm-list>
+        </aside>
+      </main>
+    </mu-auth>
+
+    <script>
+      const label = document.querySelector("#darkmode-toggle");
+      label.onchange = (event) => {
+        event.stopPropagation();
+        const isChecked = event.target.checked;
+
+        const customEvent = new CustomEvent("darkmode:toggle", {
+          bubbles: true,
+          detail: { checked: isChecked },
+        });
+        label.dispatchEvent(customEvent);
+      };
+
+      document.body.addEventListener("darkmode:toggle", (event) => {
+        const isDark = event.detail.checked;
+        document.body.classList.toggle("dark-mode", isDark);
+      });
+    </script>
+
+    <script type="module">
+      import { define, Auth } from "@calpoly/mustang";
+      import { PkmCardElement } from "/src/pkm-card.ts";
+      import { PkmListElement } from "/src/pkm-list.js";
+      import { HeaderElement } from "/src/header.js";
+
+      define({
+        "mu-auth": Auth.Provider,
+        "pkm-card": PkmCardElement,
+        "pkm-list": PkmListElement,
+        "pkmn-header": HeaderElement
+      });
+    </script>
+  </body>
+</html>
+

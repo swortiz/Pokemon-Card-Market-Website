@@ -1,0 +1,25 @@
+{
+  "name": "pokemon-card-market-website",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swortiz/Pokemon-Card-Market-Website.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/swortiz/Pokemon-Card-Market-Website/issues"
+  },
+  "homepage": "https://github.com/swortiz/Pokemon-Card-Market-Website#readme",
+  "description": "",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "serve": "^14.2.5"
+  }
+}

@@ -1,0 +1,16 @@
+[
+  {
+	"name": "Pikachu",
+	"type": "Electric",
+	"rarity": "Common",
+	"imgSrc": "/icons/pokemon.svg#pikachu-icon",
+	"link": "cards/pikachu.html"
+  },
+  {
+	"name": "Charmander",
+	"type": "Fire",
+	"rarity": "Common",
+	"imgSrc": "/icons/pokemon.svg#charmander-icon",
+	"link": "cards/charmander.html"
+  }
+]

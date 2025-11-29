@@ -1,0 +1,30 @@
+:root {
+  
+  --color-background-page: #f8f9fa;
+  --color-background-header: #ffcb05; 
+
+  
+  --color-text-default: #2c2c2c;
+  --color-text-inverted: #ffffff;
+
+  
+  --color-accent: #e3350d; /*red*/
+  --color-accent-secondary: #3d7dca; /*blue*/
+
+  
+  --font-family-base: "Open Sans", Arial,  sans-serif;
+  --font-family-heading: "Roboto Condensed", "Open Sans", sans-serif;
+
+  --font-size-base: 16px;
+  --font-size-heading: 28px;
+}
+body.dark-mode {
+  --color-background-page: #1a1a1a;
+  --color-background-header: #3d7dca;
+  
+  --color-text-default: #f5f5f5;
+  --color-text-inverted: #1a1a1a;
+  --color-accent: #ffcb05;
+  
+  -color-accent-secondary: #e3350d;
+}

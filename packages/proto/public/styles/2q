@@ -1,0 +1,65 @@
+/* page.css */
+@import url("/styles/tokens.css");
+
+/* Apply base styles */
+body {
+  background-color: var(--color-background-page);
+  color: var(--color-text-default);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.site-header {
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  gap: 10px; 
+  padding: 1rem;
+  background-color: none;
+  border-bottom: 5px solid var(--color-background-header);
+}
+/* Header */
+h1 {
+  background-color: var(--color-accent);
+  color: var(--color-text-inverted);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-heading);
+  padding: 1rem;
+  margin: 0;
+  border-bottom: 5px solid var(--color-background-header);
+  letter-spacing: 0.05cm;
+}
+
+/* Links */
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--color-accent-secondary);
+}
+
+/* List */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 1.5rem;
+}
+
+li {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+svg.icon{
+  width: 80px;
+  height: 80px;
+  fill: var(--color-accent);
+  vertical-align: middle;
+
+}

@@ -1,0 +1,94 @@
+/* page.css */
+@import url("/styles/tokens.css");
+
+body {
+  background-color: var(--color-background-page);
+  color: var(--color-text-default);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-background-header);
+  padding: 1rem;
+}
+
+/* Header */
+h1 {
+  background-color: var(--color-accent);
+  color: var(--color-text-inverted);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-heading);
+  padding: 1rem;
+  margin: 0;
+  border-bottom: 5px solid var(--color-background-header);
+  letter-spacing: 0.05cm;
+}
+
+/* Links */
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+
+a:hover {
+  color: var(--color-accent-secondary);
+}
+
+/* List */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 1.5rem;
+}
+
+li {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+svg.icon{
+  width: 80px;
+  height: 80px;
+  fill: var(--color-accent);
+  vertical-align: left;
+
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+
+@media (max-width: 800px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  main {
+    grid-template-columns: 1fr;
+  }
+}
