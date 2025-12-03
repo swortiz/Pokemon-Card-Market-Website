@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register Trainer</title>
+  <link rel="stylesheet" href="/styles/page.css" />
+</head>
+
+<body class="page">
+  <header class="site-header">
+    <h1>Pokémon Card Market</h1>
+  </header>
+  <main class="card login-card"></main>
+
+    <pkm-register-form
+      api="http://localhost:3000/auth/register"
+      redirect="/login.html">
+    </pkm-register-form>
+
+    <p>
+      Already have an account?
+      <a href="/login.html">Sign in</a>
+    </p>
+  </main>
+
+  <script type="module">
+    import { define } from "@calpoly/mustang";
+    import { RegisterFormElement } from "/src/auth/register-form.ts";
+
+    define({
+      "pkm-register-form": RegisterFormElement
+    });
+  </script>
+</body>
+</html>

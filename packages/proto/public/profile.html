@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Trainer Profile</title>
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/page.css" />
+  </head>
+
+  <body>
+    <mu-auth requires="pokemon:auth">
+      <header class="site-header">
+        <h1>Your Trainer Profile</h1>
+        <pkmn-header></pkmn-header>
+      </header>
+
+      <main>
+        <h2>Welcome, Trainer!</h2>
+        <p>You are now logged in.</p>
+        <a href="/" class="back-button">
+            <span class="arrow">←</span> Back to Home
+        </a>
+      </main>
+    </mu-auth>
+
+    <script type="module">
+      import { define, Auth } from "@calpoly/mustang";
+      import { HeaderElement } from "/src/header.js";
+
+      define({
+        "mu-auth": Auth.Provider,
+        "pkmn-header": HeaderElement
+      });
+    </script>
+  </body>
+</html>

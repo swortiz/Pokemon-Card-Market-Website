@@ -81,6 +81,52 @@ main {
   gap: 1rem;
 }
 
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-accent, #e74c3c);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-bottom: 1.5rem;
+}
+
+.back-button:hover {
+  background: #c0392b;
+  transform: translateX(-4px);
+}
+
+.back-button .arrow {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.back-button:hover .arrow {
+  transform: translateX(-4px);
+}
+
+body.page {
+  margin: 0;
+}
+
+body.page main {
+  display: flex;
+  justify-content: center;
+  padding-top: 4rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 200px;
+}
+
+.login-card p {
+  text-align: center;
+}
 
 @media (max-width: 800px) {
   header {

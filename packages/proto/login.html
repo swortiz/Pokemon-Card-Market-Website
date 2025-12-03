@@ -4,14 +4,12 @@
     <meta charset="utf-8" />
     <title>Pokémon Market | Login</title>
     <link rel="stylesheet" href="/styles/page.css" />
-    <script type="module">
-      import { define, Auth } from "@calpoly/mustang";
-      import { LoginFormElement } from "/src/auth/login-form.js";
-
-      define({
-        "mu-auth": Auth.Provider,
-        "pkmn-login": LoginFormElement
-      });
+    <script type="importmap">
+      {
+        "imports": {
+          "@calpoly/mustang": "/node_modules/@calpoly/mustang/dist/index.js"
+        }
+      }
     </script>
   </head>
 
@@ -21,10 +19,9 @@
         <h1>Pokémon Card Market</h1>
       </header>
 
-      <main class="card login-card">
-        <h2>Trainer Login</h2>
-
-        <pkmn-login api="/auth/login" redirect="/">
+      <main class="card login-card"></main>
+        <pkmn-login api="http://localhost:3000/auth/login" redirect="/profile.html">
+          <h2>Trainer Login</h2>
           <label>
             <span>Trainer Name:</span>
             <input name="username" autocomplete="off" />
@@ -39,8 +36,17 @@
           Don’t have an account?
           <a href="/register.html">Register as a new trainer</a>
         </p>
-      </main>
+      
     </mu-auth>
+    <script type="module">
+      import { define, Auth } from "@calpoly/mustang";
+      import { LoginFormElement } from "/src/auth/login-form.js";
+  
+      define({
+        "mu-auth": Auth.Provider,
+        "pkmn-login": LoginFormElement
+      });
+    </script>
   </body>
 </html>
 

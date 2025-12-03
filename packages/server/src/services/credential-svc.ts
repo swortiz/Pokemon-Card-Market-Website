@@ -1,59 +1,56 @@
-import bcrypt from "bcryptjs";
-import { Schema, model } from "mongoose";
-import { Credential } from "../models/credential";
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
-const credentialSchema = new Schema<Credential>(
+export interface Credential extends mongoose.Document {
+  username: string;
+  hashedPassword: string;
+}
+
+const credentialSchema = new mongoose.Schema<Credential>(
   {
     username: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
     hashedPassword: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   { collection: "user_credentials" }
 );
 
-const credentialModel = model<Credential>("Credential", credentialSchema);
+const credentialModel = mongoose.model<Credential>(
+  "Credential",
+  credentialSchema
+);
 
-// CREATE
-function create(username: string, password: string): Promise<Credential> {
-  return credentialModel
-    .find({ username })
-    .then((found: Credential[]) => {
-      if (found.length) throw new Error(`Username exists: ${username}`);
-    })
-    .then(() =>
-      bcrypt
-        .genSalt(10)
-        .then((salt: string) => bcrypt.hash(password, salt))
-        .then((hashedPassword: string) => {
-          const creds = new credentialModel({ username, hashedPassword });
-          return creds.save();
-        })
-    );
+// CREATE (REGISTER)
+async function create(username: string, password: string): Promise<Credential> {
+  const existing = await credentialModel.findOne({ username });
+  if (existing) throw new Error("Username already taken");
+
+  const hashed = await bcrypt.hash(password, 10);
+
+  const newUser = new credentialModel({
+    username,
+    hashedPassword: hashed,
+  });
+
+  return newUser.save();
 }
 
-// VERIFY
-function verify(username: string, password: string): Promise<string> {
-  return credentialModel
-    .find({ username })
-    .then((found) => {
-      if (!found || found.length !== 1)
-        throw new Error("Invalid username or password");
-      return found[0];
-    })
-    .then((credsOnFile: Credential) =>
-      bcrypt
-        .compare(password, credsOnFile.hashedPassword)
-        .then((result: boolean) => {
-          if (!result) throw new Error("Invalid username or password");
-          return credsOnFile.username;
-        })
-    );
+// VERIFY (LOGIN)
+async function verify(username: string, password: string): Promise<string> {
+  const user = await credentialModel.findOne({ username });
+  if (!user) throw new Error("Invalid credentials");
+
+  const isMatch = await bcrypt.compare(password, user.hashedPassword);
+  if (!isMatch) throw new Error("Invalid credentials");
+
+  return user.username;
 }
 
 export default { create, verify };
+
