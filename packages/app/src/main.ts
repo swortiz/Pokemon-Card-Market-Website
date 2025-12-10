@@ -63,7 +63,7 @@ import { LoginFormElement } from "./auth/login-form";
     }
   ];
 
-  // REGISTER CUSTOM ELEMENTS
+  //custom elements 
   define({
     "mu-auth": Auth.Provider,
     "mu-history": History.Provider,
