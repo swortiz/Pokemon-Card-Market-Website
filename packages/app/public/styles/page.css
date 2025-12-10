@@ -1,4 +1,4 @@
-/* page.css */
+//page.css
 @import url("/styles/tokens.css");
 
 body {
@@ -19,7 +19,7 @@ header {
   padding: 1rem;
 }
 
-/* Header */
+
 h1 {
   background-color: var(--color-accent);
   color: var(--color-text-inverted);
@@ -31,7 +31,7 @@ h1 {
   letter-spacing: 0.05cm;
 }
 
-/* Links */
+
 a {
   color: var(--color-accent);
   text-decoration: none;
@@ -47,7 +47,7 @@ a:hover {
   color: var(--color-accent-secondary);
 }
 
-/* List */
+
 ul {
   list-style-type: none;
   padding: 0;
