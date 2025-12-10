@@ -2,9 +2,14 @@ import {
     Auth,
     define,
     History,
-    Switch
+    Switch,
+    Store
   } from "@calpoly/mustang";
   import { html } from "lit";
+  //MVU
+  import { Msg } from "./messages";
+  import { Model, init } from "./model";
+  import update from "./update";
   
   //components
   import { HeaderElement } from "./components/pkmn-header";
@@ -15,7 +20,7 @@ import {
   import { LoginViewElement } from "./views/login-view";
   import { RegisterViewElement } from "./views/register-view";
   import { ProfileViewElement } from "./views/profile-view";
-import { LoginFormElement } from "./auth/login-form";
+  import { LoginFormElement } from "./auth/login-form";
 
 
   
@@ -66,6 +71,17 @@ import { LoginFormElement } from "./auth/login-form";
   //custom elements 
   define({
     "mu-auth": Auth.Provider,
+    "mu-store": class AppStore extends Store.Provider<Model, Msg>{
+        constructor(){
+            super(update, init, "pokemon:auth");
+
+        }
+    },
+    "mu-switch": class AppSwitch extends Switch.Element{
+      constructor() {
+        super(routes, "pokemon:history", "pokemon:auth");
+      }
+    },
     "mu-history": History.Provider,
     "pkmn-header": HeaderElement,
     "home-view": HomeViewElement,
@@ -75,12 +91,6 @@ import { LoginFormElement } from "./auth/login-form";
     "login-view": LoginViewElement,
     "register-view": RegisterViewElement,
     "profile-view": ProfileViewElement,
-    "pkmn-login": LoginFormElement,
-  
-    "mu-switch": class AppSwitch extends Switch.Element {
-      constructor() {
-        super(routes, "pokemon:history", "pokemon:auth");
-      }
-    }
+    "pkmn-login": LoginFormElement
   });
   

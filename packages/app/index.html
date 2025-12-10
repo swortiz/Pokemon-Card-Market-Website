@@ -13,12 +13,14 @@
   <body>
     <mu-history provides="pokemon:history">
         <mu-auth provides="pokemon:auth" redirect="/app/login">
-          <article class="page">
-            <pkmn-header></pkmn-header>
-            <main>
-                <mu-switch></mu-switch>
-            </main>
-          </article>
+            <mu-store provides="pokemon:model">
+            <article class="page">
+                <pkmn-header></pkmn-header>
+                <main>
+                    <mu-switch></mu-switch>
+                </main>
+             </article>
+          </mu-store>
         </mu-auth>
       </mu-history>
     <script type="module" src="/src/main.ts"></script>

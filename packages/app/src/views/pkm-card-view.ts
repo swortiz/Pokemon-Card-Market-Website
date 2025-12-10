@@ -1,25 +1,66 @@
-import { LitElement, html } from "lit";
+import { html, css } from "lit";
 import { property, state } from "lit/decorators.js";
+import { View } from "@calpoly/mustang";
+import { PkmCard } from "server/models";
+import { Msg } from "../messages";
+import { Model } from "../model";
 
-export class PkmCardViewElement extends LitElement {
+export class PkmCardViewElement extends View<Model, Msg> {
   @property({ attribute: "card-id" })
-  cardId!: string;
+  cardId?: string;
 
   @state()
-  card: any = null;
+  get card(): PkmCard | undefined {
+    return this.model.card;
+  }
 
-  connectedCallback() {
-    super.connectedCallback();
-    fetch(`http://localhost:3000/api/pkmcards/${this.cardId}`)
-      .then((r) => r.json())
-      .then((data) => (this.card = data));
+  constructor() {
+    super("pokemon:model");
+  }
+
+  attributeChangedCallback(
+    name: string,
+    oldValue: string,
+    newValue: string
+  ) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    
+    if (name === "card-id" && oldValue !== newValue && newValue) {
+      console.log("Requesting card:", newValue);
+      this.dispatchMessage([
+        "card/request",
+        { cardId: newValue }
+      ]);
+    }
   }
 
   render() {
+    const { card } = this;
+    
+    if (!card || !card.name) {
+      return html`<p>Loading card...</p>`;
+    }
+    
     return html`
-      ${this.card
-        ? html`<pkm-card .card=${this.card}></pkm-card>`
-        : html`<p>Loading...</p>`}
+       <article class="card-detail">
+         <h2>${card.name}</h2>
+         <img src="${card.imgSrc}" alt="${card.name}" />
+         <dl>
+           <dt>Type:</dt>
+           <dd>${card.type}</dd>
+           
+           <dt>Rarity:</dt>
+           <dd>${card.rarity}</dd>
+         </dl>
+         <a href="/app/cards">← Back to all cards</a>
+       </article>
     `;
   }
+
+  static styles = css`
+    :host {
+      display: block;
+      padding: 2rem;
+    }
+  `;
 }
