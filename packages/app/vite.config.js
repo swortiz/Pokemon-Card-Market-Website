@@ -1,4 +1,3 @@
-// packages/app/vite.config.js
 export default {
     server: {
       proxy: {
