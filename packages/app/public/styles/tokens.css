@@ -3,15 +3,15 @@
   --color-background-page: #f8f9fa;
   --color-background-header: #ffcb05; 
 
-  --color-background-card: #ffffff; /*light mode*/
+  --color-background-card: #ffffff;
   --color-card-border: #ffcb05;
   
   --color-text-default: #2c2c2c;
   --color-text-inverted: #ffffff;
 
   
-  --color-accent: #e3350d; /*red*/
-  --color-accent-secondary: #3d7dca; /*blue*/
+  --color-accent: #e3350d; 
+  --color-accent-secondary: #3d7dca; 
 
   
   --font-family-base: "Open Sans", Arial,  sans-serif;
