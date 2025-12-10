@@ -1,4 +1,3 @@
-// proto/src/header.ts
 import { html, css, LitElement } from "lit";
 import { state } from "lit/decorators.js";
 import { Observer, Events, Auth } from "@calpoly/mustang";
@@ -12,7 +11,7 @@ export class HeaderElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
-    // Observe login/logout changes
+    // Observe login and logout changes
     this._authObserver.observe((auth: Auth.Model) => {
       const { user } = auth;
       if (user && user.authenticated) {

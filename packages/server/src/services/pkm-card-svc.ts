@@ -1,4 +1,3 @@
-// src/services/pkm-card-svc.ts
 import { Schema, model } from "mongoose";
 import { PkmCard } from "../models/pkm-card";
 

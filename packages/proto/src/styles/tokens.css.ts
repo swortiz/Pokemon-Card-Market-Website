@@ -1,4 +1,3 @@
-// proto/src/styles/tokens.css.ts
 import { css } from "lit";
 
 const styles = css`

@@ -23,7 +23,7 @@ function generateAccessToken(username: string): Promise<string> {
   });
 }
 
-// REGISTER
+//register
 router.post("/register", (req: Request, res: Response) => {
   const { username, password } = req.body;
 
@@ -38,7 +38,7 @@ router.post("/register", (req: Request, res: Response) => {
   }
 });
 
-// LOGIN
+//login
 router.post("/login", (req: Request, res: Response) => {
   const { username, password } = req.body;
 

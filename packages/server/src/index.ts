@@ -19,7 +19,7 @@ app.use(express.json());
 
 
 
-// CORS configuration - MOVED HERE, BEFORE ROUTES
+//Cors
 app.use(cors({
   origin: 'http://localhost:5173',
   credentials: true,
@@ -27,7 +27,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Routes - AFTER CORS
+//Routes
 app.use("/auth", auth);
 app.use("/api/cards", authenticateUser, cards);
 

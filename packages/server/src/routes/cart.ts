@@ -5,7 +5,7 @@ import { CredentialModel } from "../services/credential-svc.js";
 
 const router = Router();
 
-// GET /cart - Load user's cart
+// Get
 router.get("/", auth, async (req: any, res) => {
   const username = req.user.username;
 
@@ -15,7 +15,7 @@ router.get("/", auth, async (req: any, res) => {
   res.json({ cart: user.cart || [] });
 });
 
-// POST /cart - Save user's cart
+// Post
 router.post("/", auth, async (req: any, res) => {
   const username = req.user.username;
   const { cart } = req.body;

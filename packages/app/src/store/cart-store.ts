@@ -1,4 +1,3 @@
-// store/cart-store.ts
 export interface CartItem {
   name: string;
   imgSrc: string;

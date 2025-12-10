@@ -42,7 +42,6 @@ export class PkmCardElement extends LitElement {
 	  }
 
 	  override render() {
-		//const isSprite = this.imgSrc.includes("#");
 		return html`
 		  <article @click=${this.addToCart}>
 			<h3>${this.name}</h3>

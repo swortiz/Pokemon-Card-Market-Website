@@ -31,7 +31,7 @@ const credentialModel = mongoose.model<Credential>(
   credentialSchema
 );
 
-// CREATE (REGISTER)
+//Create
 async function create(username: string, password: string): Promise<Credential> {
   const existing = await credentialModel.findOne({ username });
   if (existing) throw new Error("Username already taken");
@@ -47,7 +47,7 @@ async function create(username: string, password: string): Promise<Credential> {
   return newUser.save();
 }
 
-// VERIFY (LOGIN)
+//Verifies
 async function verify(username: string, password: string): Promise<string> {
   const user = await credentialModel.findOne({ username });
   if (!user) throw new Error("Invalid credentials");

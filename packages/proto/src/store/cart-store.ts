@@ -12,11 +12,7 @@ function getAuthToken() {
   return auth?.session?.token || null;
 }
 
-/**
- * Load cart:
- *  - From MongoDB if logged in
- *  - From localStorage if not
- */
+//Loads Cart
 export async function loadCart() {
   const token = getAuthToken();
 
@@ -26,7 +22,7 @@ export async function loadCart() {
     return local ? JSON.parse(local) : [];
   }
 
-  // Logged in → fetch from server
+  // Logged in which fetches from server
   const res = await fetch("/cart", {
     headers: { Authorization: `Bearer ${token}` }
   });
@@ -49,7 +45,7 @@ async function saveCart(cart: CartItem[]) {
     return;
   }
 
-  // Logged in user → send to backend
+  // Logged in user and sends to backend
   await fetch("/cart", {
     method: "POST",
     headers: {

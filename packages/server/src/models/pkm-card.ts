@@ -1,4 +1,3 @@
-// src/models/pkm-card.ts
 export interface PkmCard {
   id: string;           
   name: string;

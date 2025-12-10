@@ -1,4 +1,3 @@
-// proto/src/auth/login-form.ts
 import { html, css, LitElement } from "lit";
 import { property, state } from "lit/decorators.js";
 import reset from "../styles/reset.css.js";
