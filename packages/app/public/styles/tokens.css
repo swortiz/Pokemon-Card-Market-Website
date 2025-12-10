@@ -3,6 +3,8 @@
   --color-background-page: #f8f9fa;
   --color-background-header: #ffcb05; 
 
+  --color-background-card: #ffffff; /*light mode*/
+  --color-card-border: #ffcb05;
   
   --color-text-default: #2c2c2c;
   --color-text-inverted: #ffffff;
@@ -27,4 +29,6 @@ body.dark-mode {
   --color-accent: #ffcb05;
   
   -color-accent-secondary: #e3350d;
+  --color-background-card: #1a1a1a;   
+  --color-card-border: #ffcb05;    
 }

@@ -127,6 +127,41 @@ body.page main {
 .login-card p {
   text-align: center;
 }
+#cart-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #e3350d;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 999;
+}
+
+#cart-popup.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.button-primary {
+  background: var(--color-accent);
+  color: white;
+  font-weight: bold;
+  padding: var(--size-spacing-small);
+  border: none;
+  border-radius: var(--radius-medium);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  text-decoration: none; 
+}
 
 @media (max-width: 800px) {
   header {

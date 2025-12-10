@@ -19,8 +19,8 @@
         <h1>Pokémon Card Market</h1>
       </header>
 
-      <main class="card login-card"></main>
-        <pkmn-login api="http://localhost:3000/auth/login" redirect="/profile.html">
+      <main class="card login-card">
+        <pkmn-login api="/auth/login" redirect="/profile.html">
           <h2>Trainer Login</h2>
           <label>
             <span>Trainer Name:</span>
@@ -36,7 +36,7 @@
           Don’t have an account?
           <a href="/register.html">Register as a new trainer</a>
         </p>
-      
+      </main>
     </mu-auth>
     <script type="module">
       import { define, Auth } from "@calpoly/mustang";

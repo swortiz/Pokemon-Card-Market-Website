@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 export interface Credential extends mongoose.Document {
   username: string;
   hashedPassword: string;
+  cart: any[];
 }
 
 const credentialSchema = new mongoose.Schema<Credential>(
@@ -17,6 +18,10 @@ const credentialSchema = new mongoose.Schema<Credential>(
       type: String,
       required: true,
     },
+    cart: {
+      type: [Object],
+      default: []
+    }
   },
   { collection: "user_credentials" }
 );
@@ -36,6 +41,7 @@ async function create(username: string, password: string): Promise<Credential> {
   const newUser = new credentialModel({
     username,
     hashedPassword: hashed,
+    cart: []
   });
 
   return newUser.save();
@@ -51,6 +57,6 @@ async function verify(username: string, password: string): Promise<string> {
 
   return user.username;
 }
-
+export const CredentialModel = credentialModel;
 export default { create, verify };
 

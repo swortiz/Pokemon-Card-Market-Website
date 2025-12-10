@@ -30,18 +30,20 @@
             <input type="checkbox" autocomplete="off" />
             Dark mode
           </label>
-
+          <a id="cart-link" class="nav-link" href="#">Cart</a>
           <pkmn-header></pkmn-header>
         </div>
       </header>
 
-      <main>
+      <main id="main-content">
         <aside>
           <h2>Best Seller Pokémon</h2>
           <pkm-list src="/data/cards.json"></pkm-list>
         </aside>
       </main>
     </mu-auth>
+    
+    <div id="cart-popup">Added to Cart!</div>
 
     <script>
       const label = document.querySelector("#darkmode-toggle");
@@ -67,12 +69,30 @@
       import { PkmCardElement } from "/src/pkm-card.ts";
       import { PkmListElement } from "/src/pkm-list.js";
       import { HeaderElement } from "/src/header.js";
+      import "./src/cart-page.ts";
 
       define({
         "mu-auth": Auth.Provider,
         "pkm-card": PkmCardElement,
         "pkm-list": PkmListElement,
         "pkmn-header": HeaderElement
+      });
+      const main = document.querySelector("#main-content");
+
+      // When Cart is clicked shows cart-page
+      document.querySelector("#cart-link").addEventListener("click", (event) => {
+        event.preventDefault();
+        main.innerHTML = "<cart-page></cart-page>";
+      });
+
+      // Clicking the title returns to the product list
+      document.querySelector("#home-nav").addEventListener("click", () => {
+        main.innerHTML = `
+          <aside>
+            <h2>Best Seller Pokémon</h2>
+            <pkm-list src="/data/cards.json"></pkm-list>
+          </aside>
+        `;
       });
     </script>
   </body>

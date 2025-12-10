@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Pokémon Card Market</title>
+
+   
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/page.css" />
+  </head>
+
+  <body>
+    <mu-history provides="pokemon:history">
+        <mu-auth provides="pokemon:auth" redirect="/app/login">
+          <article class="page">
+            <pkmn-header></pkmn-header>
+            <main>
+                <mu-switch></mu-switch>
+            </main>
+          </article>
+        </mu-auth>
+      </mu-history>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

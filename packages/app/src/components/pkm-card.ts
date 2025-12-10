@@ -1,7 +1,7 @@
 import {html, css, LitElement} from "lit";
 import {customElement, property} from "lit/decorators.js";
-import reset from "./styles/reset.css.ts";
-import { addToCart } from "./store/cart-store.ts";
+import reset from "../styles/reset.css.ts";
+import { addToCart } from "../store/cart-store.ts";
 
 
 
@@ -45,7 +45,8 @@ export class PkmCardElement extends LitElement {
 		//const isSprite = this.imgSrc.includes("#");
 		return html`
 		  <article @click=${this.addToCart}>
-			<h3>${this.name}</h3>
+		    <img src=${this.imgSrc} alt=${this.name} />
+		 	<h3>${this.name}</h3>
 			<p><strong>Type:</strong>${this.type}</p>
 			<p><strong>Rarity:</strong>${this.rarity}</p>
 		  </article>
@@ -56,8 +57,8 @@ export class PkmCardElement extends LitElement {
 	  css`
 	   :host{
 		display: block;
-		background-color: var(--color-background-card);
-		border: 2px solid var(--color-card-border);
+		background-color: var(--color-background-card, white);
+		border: 2px solid var(--color-card-border, #e3350d);
 		border-radius: 8px;
 		padding: 1 rem;
 		text-align: center;
@@ -71,7 +72,7 @@ export class PkmCardElement extends LitElement {
 	   }
 	   img {
 		width: 120px;
-		height: auto;
+		margin-bottom: 0.5rem;
 	   }
 	   h3{
 		margin: 0.5rem 0 0.25rem;
@@ -91,5 +92,4 @@ export class PkmCardElement extends LitElement {
 
 	`
 	];
-
 }
