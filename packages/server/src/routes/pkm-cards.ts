@@ -15,8 +15,14 @@ router.get("/", (_, res: Response) => {
 router.get("/:id", (req: Request, res: Response) => {
   const { id } = req.params;
   PkmCards.get(id)
-    .then((card: PkmCard) => res.json(card))
-    .catch((err) => res.status(404).send(err));
+    .then((card: PkmCard | null) => {
+      if (card) {
+        res.json(card);
+      } else {
+        res.status(404).send({ error: "Card not found" });
+      }
+    })
+    .catch((err) => res.status(500).send(err));
 });
 //Post
 router.post("/", (req: Request, res: Response) => {

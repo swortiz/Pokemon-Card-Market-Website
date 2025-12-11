@@ -1,14 +1,17 @@
 import { html, css, LitElement } from "lit";
 import { property } from "lit/decorators.js";
 import "./pkm-card";
-interface Card {
+
+export interface PkmCard {
+    id: string;           
     name: string;
     type: string;
     rarity: string;
     imgSrc: string;
   }
+
 export class PkmListElement extends LitElement {
-  @property({ type: Array }) cards: Card[] = [];
+  @property({ type: Array }) cards: PkmCard[] = [];
 
   render() {
     return html`

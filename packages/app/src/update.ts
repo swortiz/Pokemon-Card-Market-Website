@@ -8,26 +8,20 @@ export default function update(
   model: Model,
   user: Auth.User
 ): Model | ThenUpdate<Model, Msg> {
-  const [command, payload, callbacks] = message as [
-    string,
-    any,
-    { onSuccess?: () => void; onFailure?: (err: Error) => void } | undefined
-  ];
-  
-  switch (command) {
+  switch (message[0]) {
     case "card/request": {
-      const { cardId } = payload;
+      const { cardId } = message[1];
       if (model.card?.id === cardId) break;
       
       return [
         { ...model, card: { id: cardId } as PkmCard },
-        requestCard(payload, user)
+        requestCard(message[1], user)
           .then((card) => ["card/load", { cardId, card }])
       ];
     }
     
     case "card/load": {
-      const { card } = payload;
+      const { card } = message[1];
       return { ...model, card };
     }
     
@@ -42,28 +36,29 @@ export default function update(
     }
     
     case "cards/load": {
-      const { cards } = payload;
+      const { cards } = message[1];
       return { ...model, cards };
     }
     
     case "card/save": {
-      const { cardId } = payload;
+      const { cardId } = message[1];
+      const callbacks = message[2] || {};
       return [
         model,
-        saveCard(payload, user, callbacks || {})
+        saveCard(message[1], user, callbacks)
           .then((card) => ["card/load", { cardId, card }])
       ];
     }
     
-    default:
-      const unhandled: never = command;
+    default: {
+      const unhandled: never = message[0];
       throw new Error(`Unhandled message "${unhandled}"`);
+    }
   }
   
   return model;
 }
 
-// functions
 function requestCard(
   payload: { cardId: string },
   user: Auth.User
@@ -89,7 +84,6 @@ function requestCards(user: Auth.User): Promise<PkmCard[]> {
     .then((json) => json as PkmCard[]);
 }
 
-//Save card 
 function saveCard(
   msg: {
     cardId: string;
