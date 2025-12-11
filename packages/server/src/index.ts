@@ -17,8 +17,6 @@ const uri = process.env.MONGO_URI ?? process.env.MONGODB_URI;
 
 app.use(express.json());
 
-
-
 //Cors
 app.use(cors({
   origin: 'http://localhost:5173',
@@ -29,7 +27,7 @@ app.use(cors({
 
 //Routes
 app.use("/auth", auth);
-app.use("/api/cards", authenticateUser, cards);
+app.use("/api/cards", cards);
 
 app.get("/auth/test-db", async (req, res) => {
   try {
@@ -66,49 +64,30 @@ app.get("/auth/test-db", async (req, res) => {
   }
 });
 
-app.get("/cards/:id", (req: Request, res: Response) => {
-  const { id } = req.params;
-  PkmCards.get(id).then((data) => {
-    if (data)
-      res
-        .set("Content-Type", "application/json")
-        .send(JSON.stringify(data));
-    else
-      res.status(404).send();
-  });
-});
-
-app.get("/cards", async (req: Request, res: Response) => {
-  const allCards = await PkmCards.index();
-  res.set("Content-Type", "application/json").send(JSON.stringify(allCards));
-});
-
-app.get("/api/pkmcards", async (req: Request, res: Response) => {
-  const allCards = await PkmCards.index();
-  res.json(allCards);
-});
-
-app.get("/api/pkmcards/:id", async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const card = await PkmCards.get(id);
-  if (card) res.json(card);
-  else res.status(404).send();
-});
-app.use(express.static(staticDir));
-
-app.use("/app", (req, res) => {
-  const indexHtml = path.resolve(staticDir, "index.html");
-  fs.readFile(indexHtml, "utf8").then((html) => res.send(html));
-});
-
 app.get("/auth/db-info", (req, res) => {
   const conn = mongoose.connection;
   res.json({
     host: conn.host,
-    name: conn.name,        // <-- DATABASE NAME
+    name: conn.name,
     collections: Object.keys(conn.collections),
     readyState: conn.readyState
   });
+});
+
+// Static files
+app.use(express.static(staticDir));
+
+// Redirect root to /app
+app.get("/", (req: Request, res: Response) => {
+  res.redirect("/app");
+});
+
+// SPA Routes: serve index.html for any /app/* route
+app.use("/app", (req: Request, res: Response) => {
+  const indexHtml = path.resolve(staticDir, "index.html");
+  fs.readFile(indexHtml, { encoding: "utf8" }).then((html) =>
+    res.send(html)
+  );
 });
 
 app.listen(port, () => {
@@ -123,5 +102,5 @@ if (!uri) {
 console.log("Connecting to MongoDB at", uri.replace(/:\/\/.*@/, "://***:***@"));
 
 mongoose.connect(uri, { serverSelectionTimeoutMS: 10000 })
-  .then(() => console.log(" Connected to MongoDB Atlas"))
-  .catch(err => console.error(" MongoDB connection error:", err));
+  .then(() => console.log("✓ Connected to MongoDB Atlas"))
+  .catch(err => console.error("✗ MongoDB connection error:", err));

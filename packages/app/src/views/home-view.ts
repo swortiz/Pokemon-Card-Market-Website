@@ -18,7 +18,7 @@ export class HomeViewElement extends LitElement {
     super.connectedCallback();
     console.log("HomeView connected. Fetching cards...");
   
-    fetch("http://localhost:3000/api/pkmcards")
+    fetch("/api/cards")
       .then((res) => {
         console.log("Response status:", res.status);
         return res.json();
@@ -32,7 +32,7 @@ export class HomeViewElement extends LitElement {
 
   render() {
     console.log("Rendering home-view, cards: ", this.cards);
-    
+
     return html`
       <aside>
         <h2>Best Seller Pokémon</h2>
