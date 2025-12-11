@@ -8,20 +8,26 @@ export default function update(
   model: Model,
   user: Auth.User
 ): Model | ThenUpdate<Model, Msg> {
-  switch (message[0]) {
+  const [command, payload, callbacks] = message as [
+    string,
+    any,
+    { onSuccess?: () => void; onFailure?: (err: Error) => void } | undefined
+  ];
+  
+  switch (command) {
     case "card/request": {
-      const { cardId } = message[1];
+      const { cardId } = payload;
       if (model.card?.id === cardId) break;
       
       return [
         { ...model, card: { id: cardId } as PkmCard },
-        requestCard(message[1], user)
+        requestCard(payload, user)
           .then((card) => ["card/load", { cardId, card }])
       ];
     }
     
     case "card/load": {
-      const { card } = message[1];
+      const { card } = payload;
       return { ...model, card };
     }
     
@@ -36,19 +42,28 @@ export default function update(
     }
     
     case "cards/load": {
-      const { cards } = message[1];
+      const { cards } = payload;
       return { ...model, cards };
     }
     
+    case "card/save": {
+      const { cardId } = payload;
+      return [
+        model,
+        saveCard(payload, user, callbacks || {})
+          .then((card) => ["card/load", { cardId, card }])
+      ];
+    }
+    
     default:
-      const unhandled: never = message[0];
+      const unhandled: never = command;
       throw new Error(`Unhandled message "${unhandled}"`);
   }
   
   return model;
 }
 
-//Gets a single card
+// functions
 function requestCard(
   payload: { cardId: string },
   user: Auth.User
@@ -63,7 +78,6 @@ function requestCard(
     .then((json) => json as PkmCard);
 }
 
-//Gets all the cards 
 function requestCards(user: Auth.User): Promise<PkmCard[]> {
   return fetch("/api/cards", {
     headers: Auth.headers(user)
@@ -73,4 +87,41 @@ function requestCards(user: Auth.User): Promise<PkmCard[]> {
       throw new Error("Failed to fetch cards");
     })
     .then((json) => json as PkmCard[]);
+}
+
+//Save card 
+function saveCard(
+  msg: {
+    cardId: string;
+    card: PkmCard;
+  },
+  user: Auth.User,
+  callbacks: {
+    onSuccess?: () => void;
+    onFailure?: (err: Error) => void;
+  }
+): Promise<PkmCard> {
+  return fetch(`/api/cards/${msg.cardId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      ...Auth.headers(user)
+    },
+    body: JSON.stringify(msg.card)
+  })
+    .then((response: Response) => {
+      if (response.status === 200) return response.json();
+      throw new Error(`Failed to save card ${msg.cardId}`);
+    })
+    .then((json: unknown) => {
+      if (json) {
+        if (callbacks.onSuccess) callbacks.onSuccess();
+        return json as PkmCard;
+      }
+      throw new Error("No JSON in API response");
+    })
+    .catch((err) => {
+      if (callbacks.onFailure) callbacks.onFailure(err);
+      throw err;
+    });
 }

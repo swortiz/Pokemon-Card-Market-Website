@@ -6,6 +6,7 @@ import {
     Store
   } from "@calpoly/mustang";
   import { html } from "lit";
+
   //MVU
   import { Msg } from "./messages";
   import { Model, init } from "./model";
@@ -21,11 +22,16 @@ import {
   import { RegisterViewElement } from "./views/register-view";
   import { ProfileViewElement } from "./views/profile-view";
   import { LoginFormElement } from "./auth/login-form";
-
-
+  import { PkmCardEditElement } from "./views/pkm-card-edit";
   
   //routes for pokemon app
   const routes = [
+    {
+        path: "/app/cards/:id/edit",
+        view: (params: Switch.Params) => html`
+          <pkm-card-edit card-id=${params.id}></pkm-card-edit>
+        `
+    },
     {
       path: "/app/cards/:id",
       view: (params: Switch.Params) => html`
@@ -91,6 +97,7 @@ import {
     "login-view": LoginViewElement,
     "register-view": RegisterViewElement,
     "profile-view": ProfileViewElement,
-    "pkmn-login": LoginFormElement
+    "pkmn-login": LoginFormElement,
+    "pkm-card-edit": PkmCardEditElement
   });
   

@@ -42,19 +42,22 @@ export class PkmCardViewElement extends View<Model, Msg> {
     }
     
     return html`
-       <article class="card-detail">
-         <h2>${card.name}</h2>
-         <img src="${card.imgSrc}" alt="${card.name}" />
-         <dl>
-           <dt>Type:</dt>
-           <dd>${card.type}</dd>
-           
-           <dt>Rarity:</dt>
-           <dd>${card.rarity}</dd>
-         </dl>
-         <a href="/app/cards">← Back to all cards</a>
-       </article>
-    `;
+    <article class="card-detail">
+      <h2>${card.name}</h2>
+      <img src="${card.imgSrc}" alt="${card.name}" />
+      <dl>
+        <dt>Type:</dt>
+        <dd>${card.type}</dd>
+        
+        <dt>Rarity:</dt>
+        <dd>${card.rarity}</dd>
+      </dl>
+      <div class="actions">
+        <a href="/app/cards/${card.id}/edit">Edit Card</a>
+        <a href="/app/cards">← Back to all cards</a>
+      </div>
+    </article>
+  `;
   }
 
   static styles = css`

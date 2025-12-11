@@ -16,12 +16,14 @@ export class PkmListElement extends LitElement {
         ${this.cards.map(
           (c) => html`
             <li>
-              <pkm-card
-                .imgSrc=${c.imgSrc}
-                .name=${c.name}
-                .type=${c.type}
-                .rarity=${c.rarity}
-              ></pkm-card>
+              <a href="/app/cards/${c.id}" class="card-link">
+                <pkm-card
+                    .imgSrc=${c.imgSrc}
+                    .name=${c.name}
+                    .type=${c.type}
+                    .rarity=${c.rarity}
+                ></pkm-card>
+              </a>
             </li>
           `
         )}
