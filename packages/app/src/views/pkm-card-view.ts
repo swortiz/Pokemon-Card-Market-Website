@@ -17,6 +17,16 @@ export class PkmCardViewElement extends View<Model, Msg> {
   constructor() {
     super("pokemon:model");
   }
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.cardId) {
+      console.log("Component connected, requesting card:", this.cardId);
+      this.dispatchMessage([
+        "card/request",
+        { cardId: this.cardId }
+      ]);
+    }
+  }
 
   attributeChangedCallback(
     name: string,
